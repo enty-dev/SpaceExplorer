@@ -1,0 +1,93 @@
+/*
+ * QUICK TEST BULLET PATTERNS - STEP BY STEP GUIDE
+ * ================================================
+ * 
+ * Follow these steps to test bullet patterns immediately:
+ * 
+ * 
+ * STEP 1: CREATE BULLET PREFAB
+ * =============================
+ * 1. In Unity Hierarchy, create a new GameObject
+ * 2. Name it "Bullet"
+ * 3. Add Component: Sprite Renderer
+ *    - Assign a bullet sprite (any small circle/square)
+ *    - Order in Layer: 5
+ * 
+ * 4. Add Component: Circle Collider 2D
+ *    - Radius: 0.1
+ *    - IS Trigger: CHECK ✓
+ * 
+ * 5. Add Component: Rigidbody 2D
+ *    - Body Type: Dynamic
+ *    - Gravity Scale: 0
+ *    - Collision Detection: Continuous
+ *    - Constraints: Freeze Rotation Z ✓, Freeze Z Position ✓
+ * 
+ * 6. Add Component: Bullet (script)
+ * 
+ * 7. Drag into: Assets/Resources/Prefabs/ folder (or any accessible folder)
+ * 
+ * 8. Delete from scene
+ * 
+ * 
+ * STEP 2: CREATE BULLET PATTERN ASSET
+ * ====================================
+ * 1. In Project window, right-click in Assets/
+ * 2. Create > CircleBulletPattern
+ * 3. Name it: "TestPattern_Circle"
+ * 
+ * 4. In Inspector, assign:
+ *    - Bullet Prefab: (drag Bullet prefab here)
+ *    - Bullet Count: 8
+ *    - Bullet Speed: 5
+ * 
+ * 5. Leave it in project (no need to save, it auto-saves)
+ * 
+ * 
+ * STEP 3: ATTACH TEST SCRIPT TO ENEMY
+ * ====================================
+ * 1. Select your enemy prefab in the scene
+ * 2. Add Component: BulletPatternTest
+ * 3. In Inspector:
+ *    - Bullet Pattern: (drag CircleBulletPattern asset here)
+ *    - Fire Key: Space (default)
+ *    - Fire Rate: 0.2
+ * 
+ * 
+ * STEP 4: TEST IN PLAY MODE
+ * ==========================
+ * 1. Press Play
+ * 2. Hold SPACE to fire bullets continuously
+ * 3. Watch the bullet pattern fire from enemy position
+ * 4. Bullets should spread in a circle
+ * 
+ * 
+ * TROUBLESHOOTING
+ * ===============
+ * 
+ * No bullets appear?
+ * - Check if bullet prefab is assigned to pattern
+ * - Check if bullet prefab has Rigidbody2D
+ * - Make sure "Is Trigger" is CHECKED on collider
+ * 
+ * Bullets don't move?
+ * - Check Rigidbody2D is set to Dynamic
+ * - Check Gravity Scale is 0
+ * - Make sure bullet velocity is being set (in fire pattern)
+ * 
+ * Can't see bullets?
+ * - Check Sprite Renderer has sprite assigned
+ * - Check Order in Layer is high enough (5+)
+ * - Check bullet scale isn't 0
+ * 
+ * 
+ * NEXT: TEST OTHER PATTERNS
+ * ==========================
+ * 
+ * Once circle pattern works, test others:
+ * 1. Create > SpiralBulletPattern
+ * 2. Assign to same enemy's BulletPatternTest
+ * 3. Press Play and hold SPACE
+ * 4. Try all patterns (Spiral, Wave, Cone, Line, RandomSpread)
+ * 
+ */

@@ -1,0 +1,79 @@
+/*
+ * SCRIPTABLEOBJECT BULLET PATTERNS - SETUP GUIDE
+ * ==============================================
+ * 
+ * You've successfully migrated to ScriptableObject patterns!
+ * 
+ * 
+ * STEP 1: CREATE BULLET PATTERN ASSETS
+ * ====================================
+ * 
+ * In Project window, right-click in any folder:
+ * 
+ * Create > Bullet Patterns > Circle Pattern
+ * Create > Bullet Patterns > Spiral Pattern
+ * Create > Bullet Patterns > Wave Pattern
+ * Create > Bullet Patterns > Cone Pattern
+ * Create > Bullet Patterns > Line Pattern
+ * Create > Bullet Patterns > Random Spread Pattern
+ * 
+ * Name them something like:
+ * - "Pattern_Circle_Fast.asset"
+ * - "Pattern_Spiral_Tight.asset"
+ * - "Pattern_Wave_Slow.asset"
+ * - etc.
+ * 
+ * 
+ * STEP 2: CONFIGURE EACH PATTERN
+ * ==============================
+ * 
+ * Select each .asset file and in Inspector:
+ * 
+ * 1. Assign Bullet Prefab (drag your bullet prefab)
+ * 2. Adjust parameters:
+ *    - Bullet Count (8, 12, 16, etc.)
+ *    - Bullet Speed (5-8)
+ *    - Spread Angle / Rotation (50-360)
+ * 
+ * Save automatically!
+ * 
+ * 
+ * STEP 3: ASSIGN TO ENEMY
+ * ======================
+ * 
+ * On your enemy GameObject:
+ * 
+ * 1. Select enemy in Hierarchy
+ * 2. Add Component > EnemyShooter
+ * 3. Assign Bullet Pattern: (drag Pattern_Circle_Fast.asset)
+ * 4. Set Auto Fire: ✓
+ * 5. Set Fire Rate: 0.3-0.5
+ * 
+ * DONE! Press Play!
+ * 
+ * 
+ * ADVANTAGES OF THIS APPROACH
+ * ===========================
+ * 
+ * ✓ Data-driven (no code changes to create new patterns)
+ * ✓ Reusable across all enemies
+ * ✓ Easy to tweak in Inspector
+ * ✓ Can create 100+ pattern variants instantly
+ * ✓ Better performance
+ * ✓ Works with EnemyScriptRunner for complex behaviors
+ * 
+ * 
+ * ADVANCED: USE WITH ENEMYSCRIPTRUNNER
+ * ====================================
+ * 
+ * For complex enemy behaviors:
+ * 
+ * EnemyScriptRunner runner = enemy.GetComponent<EnemyScriptRunner>();
+ * runner.AddAction(new MoveAction(new Vector3(0, 3, 0)))
+ *       .AddAction(new ShootAction(circlePattern, duration: 2f, fireRate: 0.2f))
+ *       .AddAction(new WaitAction(1f))
+ *       .AddAction(new ShootAction(spiralPattern, duration: 3f, fireRate: 0.3f))
+ *       .AddAction(new LeaveScreenAction())
+ *       .Run();
+ * 
+ */

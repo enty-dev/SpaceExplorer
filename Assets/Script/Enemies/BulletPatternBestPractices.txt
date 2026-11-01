@@ -1,0 +1,127 @@
+/*
+ * BEST PRACTICES FOR BULLET PATTERNS IN TOUHOU-LIKE GAMES
+ * ========================================================
+ * 
+ * After prototyping, here's what works best for scalability:
+ * 
+ * 
+ * APPROACH 1: ScriptableObject (RECOMMENDED for production)
+ * ===========================================================
+ * 
+ * Pros:
+ * ✓ Data-driven (create patterns without coding)
+ * ✓ Reusable across many enemies
+ * ✓ Easy to tweak in Inspector
+ * ✓ Scales to hundreds of pattern variants
+ * ✓ Better performance (less memory)
+ * ✓ Can be loaded/unloaded dynamically
+ * 
+ * Cons:
+ * ✗ Slightly more setup
+ * ✗ Can't directly attach to GameObjects
+ * 
+ * Example:
+ *   Create > CircleBulletPattern
+ *   Assign to ShootAction or EnemyShooter
+ * 
+ * 
+ * APPROACH 2: MonoBehaviour (CURRENT - Good for prototyping)
+ * ===========================================================
+ * 
+ * Pros:
+ * ✓ Easy to test in scene
+ * ✓ Simple to implement
+ * ✓ Can tweak in Inspector while playing
+ * 
+ * Cons:
+ * ✗ One pattern per enemy
+ * ✗ Can't share patterns easily
+ * ✗ Harder to manage 100+ enemy types
+ * ✗ More memory usage
+ * ✗ Not ideal for data-driven design
+ * 
+ * 
+ * BEST PRACTICE FOR TOUHOU GAMES
+ * ===============================
+ * 
+ * Use a HYBRID approach:
+ * 
+ *   Enemy Hierarchy:
+ *   ├── EnemyScript (health, movement)
+ *   ├── EnemyScriptRunner (action sequencer)
+ *   └── EnemyShooter (fires patterns)
+ *
+ *   Pattern Hierarchy:
+ *   ├── BulletPattern.cs (ScriptableObject base)
+ *   └── CircleBulletPattern.asset (data asset)
+ *
+ *   Behavior Definition:
+ *   ├── ShootAction (uses BulletPattern)
+ *   ├── MoveAction
+ *   ├── WaitAction
+ *   └── ... other actions
+ * 
+ * This lets you define enemies like:
+ *   SpawnEnemy("basic_enemy", position)
+ *   {
+ *       Move to position A
+ *       Shoot Pattern_A for 2 seconds
+ *       Wait 1 second
+ *       Shoot Pattern_B for 3 seconds
+ *       Leave
+ *   }
+ * 
+ * 
+ * WORKFLOW
+ * ========
+ * 
+ * 1. Create pattern assets (once):
+ *    Create > CircleBulletPattern → "Pattern_Circle_Fast.asset"
+ *    Create > SpiralBulletPattern → "Pattern_Spiral_Tight.asset"
+ *    Create > AimPatternScript → "Pattern_Aim_Spread.asset"
+ * 
+ * 2. Define enemy behaviors (in code or data):
+ *    new ShootAction(circlePattern, 2f, 0.2f)
+ *    new ShootAction(spiralPattern, 1.5f, 0.15f)
+ * 
+ * 3. Spawn enemies:
+ *    runner.AddAction(...).AddAction(...).Run();
+ * 
+ * 
+ * RECOMMENDED: Switch to ScriptableObject approach
+ * =================================================
+ * 
+ * Right now you're using MonoBehaviour for testing.
+ * For production, use ScriptableObjects for better scalability.
+ * 
+ * The Assets/Enemies/BulletPattern/ folder already has:
+ * - BulletPattern.cs (ScriptableObject base)
+ * - CircleBulletPattern.cs
+ * - SpiralBulletPattern.cs
+ * - ConeBulletPattern.cs
+ * - LineBulletPattern.cs
+ * - WaveBulletPattern.cs
+ * - RandomSpreadBulletPattern.cs
+ * 
+ * These are ready to use as assets!
+ * 
+ * 
+ * MIGRATION PATH
+ * ==============
+ * 
+ * Phase 1 (Current - Prototyping):
+ * - Use MonoBehaviour patterns for testing
+ * - Understand what looks good
+ * - Get gameplay feel right
+ * 
+ * Phase 2 (Before bosses):
+ * - Switch to ScriptableObject patterns
+ * - Create pattern assets in Inspector
+ * - Use EnemyScriptRunner for complex behaviors
+ * 
+ * Phase 3 (Optimization):
+ * - Implement BulletPool for hundreds of bullets
+ * - Data-drive enemy spawning
+ * - Create stage/wave definitions
+ * 
+ */

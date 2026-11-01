@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Asteroid
+  - Laser
+  - Star
+  - CoreBoss
+  - Ship
+  - Heart
+  - PowerUp
+  - BossMap3
+  - Shield
+  - Bullet
+  - Enemy
+  - BossMap2
+  - Enemy2
+  - Enemy2_2
+  - PlayerHitbox
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - hitMask
+  - Water
+  - UI
+  - BossAsteroid
+  - ScreenBounds
+  - PlayerSprite
+  - Enemy
+  - Transition
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2597311007
+    locked: 0
+  m_RenderingLayers:
+  - Default

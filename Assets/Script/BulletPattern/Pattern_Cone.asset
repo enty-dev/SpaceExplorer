@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99b9b5b800389b4c8a73f69ca94fea3, type: 3}
+  m_Name: Pattern_Cone
+  m_EditorClassIdentifier: Assembly-CSharp::ConeBulletPattern
+  bulletPrefab: {fileID: 7471348633884578387, guid: d492820cc11ae264bba4ba54bfade539, type: 3}
+  bulletCount: 20
+  bulletSpeed: 5
+  coneAngle: 120
+  centerAngle: -90

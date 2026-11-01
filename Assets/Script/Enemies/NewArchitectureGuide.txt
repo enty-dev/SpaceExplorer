@@ -1,0 +1,112 @@
+/*
+ * NEW ENEMY COMPONENT ARCHITECTURE
+ * =================================
+ * 
+ * After migration to ScriptableObject patterns, here's the clean architecture:
+ * 
+ * 
+ * ENEMY COMPONENTS SETUP
+ * ======================
+ * 
+ * 1. SPRITE RENDERER
+ *    - Enemy sprite
+ *    - Order in Layer: 3
+ * 
+ * 2. POLYGON COLLIDER 2D
+ *    - Is Trigger: ✓
+ * 
+ * 3. RIGIDBODY 2D
+ *    - Body Type: Dynamic
+ *    - Gravity Scale: 0
+ *    - Freeze Rotation Z: ✓
+ *    - Freeze Z Position: ✓
+ * 
+ * 4. ENEMYSCRIPT (for health/stats)
+ *    - Max HP: 20
+ *    - Move Speed: 5
+ *    ↳ Handles: HP, damage, death
+ * 
+ * 5. ENEMYSHOOTER (for firing patterns)
+ *    - Bullet Pattern: (drag .asset)
+ *    - Auto Fire: ✓
+ *    - Fire Rate: 0.3-0.5
+ *    ↳ Handles: Continuous shooting
+ * 
+ * 
+ * RESPONSIBILITY SEPARATION
+ * =========================
+ * 
+ * OLD (Mixed concerns):
+ *   EnemyScript = Health + Movement + Shooting + State Machine
+ *   ↳ Bloated, hard to maintain
+ * 
+ * NEW (Clean separation):
+ *   EnemyScript = Health + Basic properties only
+ *   EnemyShooter = Shooting logic (uses BulletPattern)
+ *   BulletPattern = Actual bullet behavior
+ *   EnemyMovement = Movement (optional, for complex patterns)
+ *   EnemyScriptRunner = Complex behavior sequences
+ * 
+ * 
+ * SIMPLE ENEMY (Default)
+ * ======================
+ * 
+ * Components:
+ * - Sprite Renderer
+ * - Polygon Collider 2D
+ * - Rigidbody 2D
+ * - EnemyScript (handles HP)
+ * - EnemyShooter (fires one pattern continuously)
+ * 
+ * Setup:
+ * 1. Attach EnemyShooter
+ * 2. Assign BulletPattern asset
+ * 3. Set Fire Rate
+ * 4. Done!
+ * 
+ * 
+ * COMPLEX ENEMY (Touhou Boss)
+ * ============================
+ * 
+ * Components:
+ * - (all from Simple Enemy)
+ * - EnemyScriptRunner (complex behaviors)
+ * 
+ * Setup:
+ * 1. Attach EnemyScriptRunner
+ * 2. Define behavior sequence:
+ * 
+ *    runner.AddAction(new MoveAction(targetPos))
+ *          .AddAction(new ShootAction(pattern1, 2f))
+ *          .AddAction(new WaitAction(1f))
+ *          .AddAction(new ShootAction(pattern2, 3f))
+ *          .AddAction(new LeaveScreenAction())
+ *          .Run();
+ * 
+ * 
+ * WHAT'S REMOVED FROM ENEMYSCRIPT
+ * ================================
+ * 
+ * ❌ bulletPrefab field
+ * ❌ fireRate field
+ * ❌ firingDuration field
+ * ❌ EnemyState enum
+ * ❌ MoveToTarget() logic
+ * ❌ HandleFire() logic
+ * ❌ FireBullet() method
+ * ❌ ExitScreen() method
+ * ❌ EnterFiringPhase() method
+ * 
+ * ✅ KEPT: Health system, TakeDamage(), Die()
+ * 
+ * 
+ * MIGRATION CHECKLIST
+ * ===================
+ * 
+ * ☑ Cleaned up EnemyScript
+ * ☑ Migrated to ScriptableObject patterns
+ * ☑ EnemyShooter uses BulletPattern assets
+ * ☑ Separation of concerns
+ * ☑ Ready for complex behaviors with EnemyScriptRunner
+ * 
+ */

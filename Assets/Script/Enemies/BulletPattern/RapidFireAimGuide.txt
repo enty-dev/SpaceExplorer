@@ -1,0 +1,99 @@
+/*
+ * RAPID FIRE AIMED PATTERN - SETUP GUIDE
+ * =======================================
+ * 
+ * For enemies that shoot rapidly at the player.
+ * 
+ * 
+ * STEP 1: CREATE AIM PATTERN ASSET
+ * =================================
+ * 
+ * 1. Right-click in Project window
+ * 2. Create > Bullet Patterns > Aim Pattern
+ * 3. Name it: "Pattern_Aim_RapidFire.asset"
+ * 
+ * 4. In Inspector, configure:
+ *    - Bullet Prefab: (drag your bullet)
+ *    - Bullet Count: 1 (single bullet per shot)
+ *    - Bullet Speed: 7 (fast)
+ *    - Spread Angle: 0 (straight aim - no spread)
+ * 
+ * 
+ * STEP 2: SETUP ENEMY
+ * ===================
+ * 
+ * On your enemy GameObject:
+ * 
+ * 1. Add Component > EnemyShooter
+ * 2. Bullet Pattern: (drag Pattern_Aim_RapidFire.asset)
+ * 3. Auto Fire: ✓
+ * 4. Fire Rate: 0.15 ← This is KEY for rapid fire!
+ *    (Lower = faster. 0.1 = 10 shots/sec, 0.15 = ~6.67 shots/sec)
+ * 
+ * 
+ * STEP 3: SET PLAYER TARGET
+ * ==========================
+ * 
+ * Create a setup script on the enemy:
+ * 
+ * ```csharp
+ * public class EnemySetup : MonoBehaviour
+ * {
+ *     [SerializeField] private AimBulletPattern aimPattern;
+ *     [SerializeField] private Transform playerTransform;
+ *     
+ *     private void Start()
+ *     {
+ *         // Find player if not assigned
+ *         if (playerTransform == null)
+ *             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+ *         
+ *         // Tell aim pattern where player is
+ *         if (aimPattern != null)
+ *             aimPattern.SetPlayerTarget(playerTransform);
+ *     }
+ * }
+ * ```
+ * 
+ * OR manually drag Player into the inspector field!
+ * 
+ * 
+ * RAPID FIRE SETTINGS REFERENCE
+ * =============================
+ * 
+ * Fire Rate | Shots per second | Effect
+ * ----------|-----------------|--------
+ * 0.05      | 20 shots/sec    | VERY FAST
+ * 0.10      | 10 shots/sec    | Fast
+ * 0.15      | ~6.7 shots/sec  | Moderate rapid fire
+ * 0.20      | 5 shots/sec     | Medium
+ * 0.30      | ~3.3 shots/sec  | Slow
+ * 0.50      | 2 shots/sec     | Very slow
+ * 
+ * 
+ * PATTERN PARAMETERS FOR RAPID FIRE
+ * ==================================
+ * 
+ * For rapid fire aimed attacks:
+ * - Bullet Count: 1 (single shot per fire)
+ * - Spread Angle: 0 (straight aim)
+ * - Bullet Speed: 6-8 (fast)
+ * - Fire Rate: 0.1-0.2 (rapid)
+ * 
+ * For spread aimed attack:
+ * - Bullet Count: 3-5 (multiple bullets)
+ * - Spread Angle: 45-90 (fan pattern)
+ * - Bullet Speed: 5 (normal)
+ * - Fire Rate: 0.3-0.5 (slower to balance spread)
+ * 
+ * 
+ * TESTING
+ * =======
+ * 
+ * 1. Create Aim Pattern asset
+ * 2. Add to enemy
+ * 3. Press Play
+ * 4. Enemy should shoot at you!
+ * 5. Adjust Fire Rate in Inspector (while playing) to test
+ * 
+ */
